@@ -26,6 +26,18 @@
       misc styles, nothing to do with CSS variables
     */
 
+    :root {
+      --base : #FFFF00;
+      --spacing :5px;
+      --blur : 5px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
     body {
       text-align: center;
     }
@@ -46,8 +58,22 @@
       width:100px;
     }
   </style>
-
   <script>
+        /* global console */
+        /* jshint esversion: 6 */
+         var nodes = document.querySelectorAll('.controls input');
+         function handleUpdates(event) {
+          'use strict';
+          var target = event.target;
+          var suffix = target.dataset.sizing || '';
+          document.documentElement.style.setProperty(`--${target.name}`, target.value + suffix);
+
+         }
+         for (var node of nodes) {
+          node.addEventListener('change', handleUpdates);
+          node.addEventListener('mousemove', handleUpdates);
+         }
+
   </script>
 
 </body>

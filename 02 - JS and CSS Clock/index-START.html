@@ -16,6 +16,7 @@
     </div>
 
 
+
   <style>
     html {
       background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
@@ -62,13 +63,41 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
+    </style>
+    <script type="text/javascript">
+    /* global console */
 
-  </style>
+      function getDeg(clock_num) {
+        'use strict';
+        return (90 + (clock_num * (360/60))) % 360;
+      }
 
-  <script>
+      function getHourDeg(hour) {
+        'use strict';
+        return (90 + (hour * (360/12))) % 360;
+      }
 
+      
+      function setDate() {
+        'use strict';
+        var now = new Date();
+        var second_deg = getDeg(now.getSeconds());
+        document.querySelector('.second-hand').style.transform = `rotate(${second_deg}deg)`;
 
-  </script>
+        var minute_deg = getDeg(now.getMinutes());
+        document.querySelector('.min-hand').style.transform = `rotate(${minute_deg}deg)`;
+
+        var hour_deg = getHourDeg(now.getHours());
+        document.querySelector('.hour-hand').style.transform = `rotate(${hour_deg}deg)`;
+      }
+
+      setInterval(setDate, 1000);
+    </script>
+
 </body>
 </html>
